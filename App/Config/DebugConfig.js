@@ -1,7 +1,8 @@
 export default {
+  useJsonServer: __DEV__ && true,
   showDevScreens: __DEV__,
   useFixtures: false,
-  ezLogin: false,
+  ezLogin: true,
   yellowBox: __DEV__,
   reduxLogging: __DEV__,
   includeExamples: __DEV__,

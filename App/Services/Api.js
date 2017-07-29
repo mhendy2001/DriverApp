@@ -1,14 +1,17 @@
 // a library to wrap and simplify api calls
 import apisauce from 'apisauce'
+import DebugConfig from '../Config/DebugConfig'
+import JsonServerSettings from '../../JsonServer/json-server.json'
 
 // our "constructor"
-const create = (baseURL = 'https://api.github.com/') => {
+const create = (baseURL = 'https://api.movinga.com/') => {
   // ------
   // STEP 1
   // ------
   //
   // Create and configure an apisauce-based api object.
   //
+  if (DebugConfig.useJsonServer) { baseURL = 'http://' + JsonServerSettings.host + ':' + JsonServerSettings.port }
   const api = apisauce.create({
     // base URL is read from the "constructor"
     baseURL,
@@ -34,9 +37,8 @@ const create = (baseURL = 'https://api.github.com/') => {
   // Since we can't hide from that, we embrace it by getting out of the
   // way at this level.
   //
-  const getRoot = () => api.get('')
-  const getRate = () => api.get('rate_limit')
-  const getUser = (username) => api.get('search/users', {q: username})
+  const getMoves = () => api.get(DebugConfig.useJsonServer ? 'moves' : '')
+  const getTimeSlots = () => api.get(DebugConfig.useJsonServer ? 'time_slots' : '')
 
   // ------
   // STEP 3
@@ -52,9 +54,8 @@ const create = (baseURL = 'https://api.github.com/') => {
   //
   return {
     // a list of the API functions from step 2
-    getRoot,
-    getRate,
-    getUser
+    getMoves,
+    getTimeSlots
   }
 }
 

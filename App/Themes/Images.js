@@ -1,5 +1,11 @@
 // leave off @2x/@3x
 const images = {
+  activeScheduleIcon: require('../Images/Icons/icon-schedule-active.png'),
+  inactiveScheduleIcon: require('../Images/Icons/icon-schedule.png'),
+  activeTodayIcon: require('../Images/Icons/icon-today-active.png'),
+  inactiveTodayIcon: require('../Images/Icons/icon-today.png'),
+
+  // Ignite images
   logo: require('../Images/ir.png'),
   clearLogo: require('../Images/top_logo.png'),
   launch: require('../Images/launch-icon.png'),

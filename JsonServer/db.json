@@ -1,0 +1,78 @@
+{
+  "time_slots": [
+    {
+      "id": 1,
+      "name": "Morning",
+      "start_time": "7:00",
+      "end_time": "9:00"
+    },
+    {
+      "id": 2,
+      "name": "Afternoon",
+      "start_time": "13:00",
+      "end_time": "15:00"
+    }
+  ],
+  "moves": [
+    {
+      "id": 1,
+      "volume": 5.0,
+      "date": "02-08-2017",
+      "desired_time_slot": 1,
+      "pickup_location": {
+        "street": "Friedrichstraße 113",
+        "post_code": "10117",
+        "city": "Berlin",
+        "latitude": 52.525840,
+        "longitude": 13.387690
+      },
+      "delivery_location": {
+        "street": "Kurfürstendamm 112",
+        "post_code": "10711",
+        "city": "Berlin",
+        "latitude": 52.497570,
+        "longitude": 13.291710
+      }
+    },
+    {
+      "id": 2,
+      "volume": 2.0,
+      "date": "02-08-2017",
+      "desired_time_slot": 2,
+      "pickup_location": {
+        "street": "Potsdamer Straße 45",
+        "post_code": "10785",
+        "city": "Berlin",
+        "latitude": 52.509182,
+        "longitude": 13.371682
+      },
+      "delivery_location": {
+        "street": "Sonnenallee 67",
+        "post_code": "12045",
+        "city": "Berlin",
+        "latitude": 52.484650,
+        "longitude": 13.435210
+      }
+    },
+    {
+      "id": 3,
+      "volume": 3.0,
+      "date": "03-08-2017",
+      "desired_time_slot": 2,
+      "pickup_location": {
+        "street": "Zeil 89",
+        "post_code": "60313",
+        "city": "Berlin",
+        "latitude": 50.114100,
+        "longitude": 8.682360
+      },
+      "delivery_location": {
+        "street": "Köpenicker Straße 54",
+        "post_code": "10179",
+        "city": "Berlin",
+        "latitude": 52.509528,
+        "longitude": 13.422285
+      }
+    }
+  ]
+}
