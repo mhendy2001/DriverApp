@@ -4,10 +4,10 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  fetchMoves: ['startDate', 'endDate'],
+  fetchMoves: null,
   fetchSuccess: ['moves'],
   fetchFailure: null,
-  getMoves: null  
+  getMoves: null
 })
 
 export const MovesTypes = Types
@@ -16,8 +16,6 @@ export default Creators
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
-  startDate: null,
-  endDate: null,
   moves: null,
   fetching: false,
   error: null
@@ -26,8 +24,8 @@ export const INITIAL_STATE = Immutable({
 /* ------------- Reducers ------------- */
 
 // request the avatar for a user
-export const fetchMoves = (state, { startDate, endDate }) =>
-  state.merge({ fetching: true, startDate, endDate, moves: null })
+export const fetchMoves = (state) =>
+  state.merge({ fetching: true })
 
 // successful avatar lookup
 export const fetchSuccess = (state, action) => {
@@ -37,7 +35,7 @@ export const fetchSuccess = (state, action) => {
 
 // failed to get the avatar
 export const fetchFailure = (state) =>
-  state.merge({ fetching: false, error: true, moves: null })
+  state.merge({ fetching: false, error: true, moves: state.moves })
 
 /* ------------- Hookup Reducers To Types ------------- */
 
