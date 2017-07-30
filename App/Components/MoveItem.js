@@ -23,14 +23,14 @@ interface MoveItemProps {
   isCurrentDay: boolean,
   isActive: boolean,
   currentTime: Date,
-  onPress (): void,
-  setReminder (): void,
-  removeReminder (): void
+  isCollapsed: boolean,
+  onPress (): void
 }
 
 interface MoveItemState {
   isActive: boolean,
-  animatedSize: Animated.Value
+  animatedSize: Animated.Value,
+  isCollapsed: boolean
 }
 
 export default class MoveItem extends React.Component<MoveItemProps, MoveItemState> {
@@ -39,7 +39,8 @@ export default class MoveItem extends React.Component<MoveItemProps, MoveItemSta
 
     this.state = {
       isActive: false,
-      animatedSize: new Animated.Value(1)
+      animatedSize: new Animated.Value(1),
+      isCollapsed: true
     }
   }
 
@@ -48,6 +49,10 @@ export default class MoveItem extends React.Component<MoveItemProps, MoveItemSta
       toValue: 1.05,
       useNativeDriver: true
     }).start()
+    if (__DEV__ && console.tron) {
+      console.tron.log({mesage: 'handlePressIn', object: this.state.isCollapsed})
+    }
+    this.setState({isCollapsed: !this.state.isCollapsed})
   }
 
   handlePressOut = () => {
@@ -72,7 +77,8 @@ export default class MoveItem extends React.Component<MoveItemProps, MoveItemSta
       deliveryLocationLongitude,
       volume,
       date,
-      desiredTimeSlot
+      desiredTimeSlot,
+      isCollapsed
     } = this.props
 
     if (__DEV__ && console.tron) {
@@ -97,21 +103,28 @@ export default class MoveItem extends React.Component<MoveItemProps, MoveItemSta
         >
           <Animated.View style={containerStyles}>
             <View style={styles.locations}>
-              <LocationInfo
-                street={this.props.pickupLocationStreet}
-                postcode={this.props.pickupLocationPostcode}
-                city={this.props.pickupLocationCity}
-                latitude={this.props.pickupLocationLatitude}
-                longitude={this.props.pickupLocationLongitude}
-              />
+              <View style={styles.location}>
+                <LocationInfo
+                  street={this.props.pickupLocationStreet}
+                  postcode={this.props.pickupLocationPostcode}
+                  city={this.props.pickupLocationCity}
+                  latitude={this.props.pickupLocationLatitude}
+                  longitude={this.props.pickupLocationLongitude}
+                  isCollapsed={this.props.isCollapsed}
+                />
+              </View>
               <Image style={styles.image} source={Images.truckIcon}></Image>
-              <LocationInfo
-                street={this.props.deliveryLocationStreet}
-                postcode={this.props.deliveryLocationPostcode}
-                city={this.props.deliveryLocationCity}
-                latitude={this.props.deliveryLocationLatitude}
-                longitude={this.props.deliveryLocationLongitude}
-              />
+              <View style={styles.location}>
+                <LocationInfo
+                  street={this.props.deliveryLocationStreet}
+                  postcode={this.props.deliveryLocationPostcode}
+                  city={this.props.deliveryLocationCity}
+                  latitude={this.props.deliveryLocationLatitude}
+                  longitude={this.props.deliveryLocationLongitude}
+                  isCollapsed={this.props.isCollapsed}
+                />
+              </View>
+
             </View>
               <View style={styles.info}>
                 <Text style={styles.name}>Volume</Text>

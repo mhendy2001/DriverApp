@@ -7,24 +7,25 @@ interface LocationInfoProps {
   city: string,
   postcode: string,
   latitude: number,
-  longitude: number
+  longitude: number,
+  isCollapsed: boolean
 }
 
 const LocationInfo = (props: LocationInfoProps) => {
-  const { street, city, postcode, latitude, longitude } = props
+  const { street, city, postcode, latitude, longitude, isCollapsed } = props
   if (__DEV__ && console.tron) {
     console.tron.log({mesage: 'LocationInfo', object: props})
   }
   return (
-    <View style={styles.leftContainer}>
-          <Text style={styles.detailLabel}>
+    <View style={styles.container}>
+          {
+            !isCollapsed && <Text style={styles.normalText}>{city}</Text>
+          }
+          <Text style={styles.primaryText}>
             {street}
           </Text>
-          <Text style={styles.detailText}>
+          <Text style={styles.normalText}>
             {postcode}
-          </Text>
-          <Text style={styles.detailLabel}>
-            {city}
           </Text>
     </View>
   )

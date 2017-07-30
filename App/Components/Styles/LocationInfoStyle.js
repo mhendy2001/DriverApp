@@ -16,15 +16,17 @@ export default StyleSheet.create({
   detail: {
     paddingRight: Metrics.doubleBaseMargin
   },
-  detailLabel: {
+  normalText: {
     flex: 1,
+    textAlign: 'center',
     ...Fonts.style.small,
     color: Colors.lightText,
     letterSpacing: 0
   },
-  detailText: {
+  primaryText: {
     flex: 1,
-    ...Fonts.style.normal,
+    textAlign: 'center',
+    ...Fonts.style.small,
     color: Colors.primary,
     letterSpacing: 0
   },

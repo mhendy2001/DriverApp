@@ -34,9 +34,8 @@ export default StyleSheet.create({
     borderTopRightRadius: Metrics.cardRadius,
     backgroundColor: Colors.snow
   },
-  infoText: {
-    flex: 1,
-    paddingRight: Metrics.baseMargin
+  location: {
+    flex: 0.4
   },
   title: {
     ...Fonts.style.h6,
@@ -75,9 +74,8 @@ export default StyleSheet.create({
     letterSpacing: 0
   },
   image: {
-    // width: Metrics.images.large,
-    // height: Metrics.images.large,
     margin: Metrics.smallMargin,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    flex: 0.1
   },
 })
