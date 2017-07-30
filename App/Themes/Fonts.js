@@ -51,7 +51,11 @@ const style = {
     fontFamily: type.base,
     fontSize: size.medium
   },
-  tabBarLabel: {
+  small: {
+    fontFamily: type.base,
+    fontSize: size.small
+  },
+  tiny: {
     fontFamily: type.base,
     fontSize: size.small
   }

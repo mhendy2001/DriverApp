@@ -27,6 +27,6 @@ export default function * root () {
     takeLatest(StartupTypes.STARTUP, startup),
 
     // some sagas receive extra parameters in addition to an action
-    takeLatest(MovesTypes.FETCH_MOVES, getMoves, api)
+    takeLatest(MovesTypes.GET_MOVES, getMoves, api)
   ]
 }

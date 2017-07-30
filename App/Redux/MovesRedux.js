@@ -6,7 +6,8 @@ import Immutable from 'seamless-immutable'
 const { Types, Creators } = createActions({
   fetchMoves: ['startDate', 'endDate'],
   fetchSuccess: ['moves'],
-  fetchFailure: null
+  fetchFailure: null,
+  getMoves: null  
 })
 
 export const MovesTypes = Types

@@ -15,7 +15,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.primary
   },
   tabBarLabel: {
-    ...Fonts.style.tabBarLabel,
+    ...Fonts.style.small,
     letterSpacing: 0,
     color: Colors.snow
   },

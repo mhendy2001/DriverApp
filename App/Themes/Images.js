@@ -4,6 +4,7 @@ const images = {
   inactiveScheduleIcon: require('../Images/Icons/icon-schedule.png'),
   activeTodayIcon: require('../Images/Icons/icon-today-active.png'),
   inactiveTodayIcon: require('../Images/Icons/icon-today.png'),
+  truckIcon: require('../Images/Icons/icon-truck.png'),  
 
   // Ignite images
   logo: require('../Images/ir.png'),

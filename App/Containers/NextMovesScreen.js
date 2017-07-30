@@ -11,10 +11,11 @@ import { connect } from 'react-redux'
 // Styles
 import styles from './Styles/NextMoveScreenStyle'
 import { Images } from '../Themes'
+import I18n from 'react-native-i18n'
 
 class NextMoveScreen extends Component {
   static navigationOptions = {
-    tabBarLabel: 'Today\'s Moves',
+    tabBarLabel: I18n.t('Today Moves'),
     tabBarIcon: ({ focused }) => (
       <Image source={focused ? Images.activeTodayIcon : Images.inactiveTodayIcon} />
     )

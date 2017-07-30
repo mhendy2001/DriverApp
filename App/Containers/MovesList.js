@@ -1,6 +1,16 @@
 import React, { Component } from 'react'
-import { View, Text, ListView, Image } from 'react-native'
+import { AppState, View, Text, FlatList, Image } from 'react-native'
 import { connect } from 'react-redux'
+import MovesActions from '../Redux/MovesRedux'
+import {
+  merge,
+  groupWith,
+  contains,
+  assoc,
+  map,
+  sum,
+  findIndex
+} from 'ramda'
 
 // For empty lists
 // import AlertMessage from '../Components/AlertMessage'
@@ -8,111 +18,112 @@ import { connect } from 'react-redux'
 // Styles
 import styles from './Styles/MovesListStyle'
 import { Images } from '../Themes'
+import I18n from 'react-native-i18n'
+import ListGradient from '../Components/ListGradient'
+import MoveItem from '../Components/MoveItem'
 
 class MovesList extends Component {
   static navigationOptions = {
-    tabBarLabel: 'Moves Schedule',
+    tabBarLabel: I18n.t('Moves Schedule'),
     tabBarIcon: ({ focused }) => (
       <Image source={focused ? Images.activeScheduleIcon : Images.inactiveScheduleIcon} />
     )
   }
 
-  state: {
-    dataSource: Object
-  }
-
   constructor (props) {
     super(props)
-    /* ***********************************************************
-    * STEP 1
-    * This is an array of objects with the properties you desire
-    * Usually this should come from Redux mapStateToProps
-    *************************************************************/
-    const dataObjects = [
-      {title: 'First Title', description: 'First Description'},
-      {title: 'Second Title', description: 'Second Description'},
-      {title: 'Third Title', description: 'Third Description'},
-      {title: 'Fourth Title', description: 'Fourth Description'},
-      {title: 'Fifth Title', description: 'Fifth Description'},
-      {title: 'Sixth Title', description: 'Sixth Description'},
-      {title: 'Seventh Title', description: 'Seventh Description'}
-    ]
 
-    /* ***********************************************************
-    * STEP 2
-    * Teach datasource how to detect if rows are different
-    * Make this function fast!  Perhaps something like:
-    *   (r1, r2) => r1.id !== r2.id}
-    *************************************************************/
-    const rowHasChanged = (r1, r2) => r1 !== r2
+    const { moves } = props
+    const data = moves
+    const appState = AppState.currentState
 
-    // DataSource configured
-    const ds = new ListView.DataSource({rowHasChanged})
+    this.state = {data, appState}
+  }
 
-    // Datasource is always in state
-    this.state = {
-      dataSource: ds.cloneWithRows(dataObjects)
+  componentDidMount () {
+    AppState.addEventListener('change', this._handleAppStateChange)
+  }
+
+  componentWillUnmount () {
+    AppState.removeEventListener('change', this._handleAppStateChange)
+  }
+
+  componentWillReceiveProps (newProps) {
+    if (__DEV__ && console.tron) {
+      console.tron.log({mesage: 'componentWillReceiveProps', object: newProps})
     }
+    const { moves } = newProps
+    this.setState({
+          data: moves
+        })
   }
 
-  /* ***********************************************************
-  * STEP 3
-  * `renderRow` function -How each cell/row should be rendered
-  * It's our best practice to place a single component here:
-  *
-  * e.g.
-    return <MyCustomCell title={rowData.title} description={rowData.description} />
-  *************************************************************/
-  renderRow (rowData) {
-    return (
-      <View style={styles.row}>
-        <Text style={styles.boldLabel}>{rowData.title}</Text>
-        <Text style={styles.label}>{rowData.description}</Text>
-      </View>
-    )
-  }
-
-  /* ***********************************************************
-  * STEP 4
-  * If your datasource is driven by Redux, you'll need to
-  * reset it when new data arrives.
-  * DO NOT! place `cloneWithRows` inside of render, since render
-  * is called very often, and should remain fast!  Just replace
-  * state's datasource on newProps.
-  *
-  * e.g.
-    componentWillReceiveProps (newProps) {
-      if (newProps.someData) {
-        this.setState(prevState => ({
-          dataSource: prevState.dataSource.cloneWithRows(newProps.someData)
-        }))
-      }
+  _handleAppStateChange = (nextAppState) => {
+    const { appState } = this.state
+    if (__DEV__ && console.tron) {
+      console.tron.log('_handleAppStateChange')
     }
-  *************************************************************/
-
-  // Used for friendly AlertMessage
-  // returns true if the dataSource is empty
-  noRowData () {
-    return this.state.dataSource.getRowCount() === 0
+    if (appState.match(/inactive|background/) && nextAppState === 'active') {
+      this.props.getMoves()
+    }
+    this.setState({appState: nextAppState})
   }
 
-  // Render a footer.
-  renderFooter = () => {
-    return (
-      <Text> - Footer - </Text>
-    )
+  getItemLayout = (data, index) => {
+    const item = data[index]
+    const itemLength = (item, index) => {
+        return 140
+    }
+    const length = itemLength(item)
+    const offset = sum(data.slice(0, index).map(itemLength))
+    return { length, offset, index }
+  }
+
+  // if value exists, create the function calling it, otherwise false
+  funcOrFalse = (func, val) => val ? () => func.call(this, val) : false
+
+  renderItem = ({item}) => {
+    if (__DEV__ && console.tron) {
+      console.tron.log({mesage: 'renderItem', object: item})
+    }
+    const isActive = true
+    const isFinished = false
+
+      return (
+        <MoveItem
+          volume={item.volume}
+          date={item.date}
+          desiredTimeSlot={item.desired_time_slot}
+          pickupLocationStreet={item.pickup_location.street}
+          pickupLocationCity={item.pickup_location.city}
+          pickupLocationPostcode={item.pickup_location.post_code}
+          pickupLocationLatitude={item.pickup_location.latitude}
+          pickupLocationLongitude={item.pickup_location.longitude}
+          deliveryLocationStreet={item.delivery_location.street}
+          deliveryLocationCity={item.delivery_location.city}
+          deliveryLocationPostcode={item.delivery_location.post_code}
+          deliveryLocationLatitude={item.delivery_location.latitude}
+          deliveryLocationLongitude={item.delivery_location.longitude}
+        />
+      )
   }
 
   render () {
+    const { data } = this.state
+    if (__DEV__ && console.tron) {
+      console.tron.log({mesage: 'render', object: this.state})
+    }
     return (
       <View style={styles.container}>
-        <ListView
+        <FlatList
+          ref='movesList'
+          data={data}
+          extraData={this.props}
+          renderItem={this.renderItem}
+          keyExtractor={(item, idx) => item.id}
           contentContainerStyle={styles.listContent}
-          dataSource={this.state.dataSource}
-          renderRow={this.renderRow}
-          renderFooter={this.renderFooter}
-          enableEmptySections
-          pageSize={15}
+          getItemLayout={this.getItemLayout}
+          showsVerticalScrollIndicator={false}
         />
       </View>
     )
@@ -120,13 +131,17 @@ class MovesList extends Component {
 }
 
 const mapStateToProps = (state) => {
+  if (__DEV__ && console.tron) {
+    console.tron.log({mesage: 'mapStateToProps', object: state})
+  }
   return {
-    // ...redux state to props here
+        moves: state.moves.moves,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getMoves: () => dispatch(MovesActions.getMoves())
   }
 }
 

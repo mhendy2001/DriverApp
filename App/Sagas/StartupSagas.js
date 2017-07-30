@@ -35,6 +35,6 @@ export function * startup (action) {
   const moves = yield select(movesList)
   // only get if we don't have it yet
   if (!is(String, moves)) {
-    yield put(MovesActions.fetchMoves(null, null))
+    yield put(MovesActions.getMoves())
   }
 }

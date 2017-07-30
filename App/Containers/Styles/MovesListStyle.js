@@ -9,22 +9,18 @@ export default StyleSheet.create({
   },
   row: {
     flex: 1,
-    backgroundColor: Colors.fire,
-    marginVertical: Metrics.smallMargin,
-    justifyContent: 'center'
+    backgroundColor: Colors.snow,
+    marginVertical: Metrics.smallMargin
   },
   boldLabel: {
     fontWeight: 'bold',
-    alignSelf: 'center',
-    color: Colors.snow,
-    textAlign: 'center',
-    marginBottom: Metrics.smallMargin
+    color: Colors.text
   },
   label: {
-    textAlign: 'center',
-    color: Colors.snow
+    color: Colors.text
   },
   listContent: {
-    marginTop: Metrics.baseMargin
+    paddingTop: Metrics.doubleBaseMargin,
+    paddingBottom: Metrics.baseMargin * 8
   }
 })

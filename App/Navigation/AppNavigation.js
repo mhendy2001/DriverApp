@@ -22,7 +22,7 @@ const TabNav = TabNavigator({
   NextMoves: { screen: NextMovesScreen },
   AllMoves: { screen: MovesList }
 }, {
-  key: 'Schedule',
+  key: 'Today',
   tabBarComponent: TabBarBottom,
   tabBarPosition: 'bottom',
   animationEnabled: true,
