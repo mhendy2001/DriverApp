@@ -12,6 +12,7 @@ import { MovesTypes } from '../Redux/MovesRedux'
 
 import { startup } from './StartupSagas'
 import { getMoves } from './MovesSagas'
+import { trackTime } from './TimeTrackSagas'
 
 /* ------------- API ------------- */
 
@@ -25,6 +26,7 @@ export default function * root () {
   yield [
     // some sagas only receive an action
     takeLatest(StartupTypes.STARTUP, startup),
+    takeLatest(MovesTypes.TRACK_TIME, trackTime),    
 
     // some sagas receive extra parameters in addition to an action
     takeLatest(MovesTypes.GET_MOVES, getMoves, api)

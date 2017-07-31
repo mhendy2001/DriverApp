@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import styles from './Styles/LocationInfoStyle'
+import I18n from 'react-native-i18n'
 
 interface LocationInfoProps {
   street: string,
@@ -8,6 +9,7 @@ interface LocationInfoProps {
   postcode: string,
   latitude: number,
   longitude: number,
+  showDirections (): void,
   isCollapsed: boolean
 }
 
@@ -18,15 +20,14 @@ const LocationInfo = (props: LocationInfoProps) => {
   }
   return (
     <View style={styles.container}>
-          {
-            !isCollapsed && <Text style={styles.normalText}>{city}</Text>
-          }
-          <Text style={styles.primaryText}>
-            {street}
-          </Text>
-          <Text style={styles.normalText}>
-            {postcode}
-          </Text>
+          <Text style={styles.normalText}>{city}</Text>
+          <Text style={styles.primaryText}>{street}</Text>
+          <Text style={styles.normalText}>{postcode}</Text>
+          <TouchableOpacity style={styles.showDirectionsTouchable} onPress={props.showDirections}>
+            <Text style={styles.showDirectionsText}>
+              {I18n.t('Show Directions')}
+            </Text>
+          </TouchableOpacity>
     </View>
   )
 }

@@ -33,7 +33,7 @@ class MovesList extends Component {
   constructor (props) {
     super(props)
 
-    const { moves } = props
+    const { moves, timeSlots, currentTime } = props
     const data = moves
     const appState = AppState.currentState
 
@@ -72,7 +72,7 @@ class MovesList extends Component {
   getItemLayout = (data, index) => {
     const item = data[index]
     const itemLength = (item, index) => {
-        return 140
+        return 160
     }
     const length = itemLength(item)
     const offset = sum(data.slice(0, index).map(itemLength))

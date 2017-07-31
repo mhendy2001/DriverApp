@@ -30,12 +30,15 @@ export default StyleSheet.create({
     color: Colors.primary,
     letterSpacing: 0
   },
-  remindMe: {
+  showDirectionsText: {
     flex: 1,
-    alignItems: 'stretch'
+    textAlign: 'center',
+    ...Fonts.style.small,
+    color: Colors.secondary,
+    letterSpacing: 0
   },
-  socialButtons: {
-    alignItems: 'center',
-    flexDirection: 'row'
-  }
+  showDirectionsTouchable: {
+    flex: 1,
+    marginTop: Metrics.smallMargin
+  },
 })

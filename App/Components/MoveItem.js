@@ -3,6 +3,8 @@ import { View, Text, Image, TouchableWithoutFeedback, LayoutAnimation, Animated 
 import styles from './Styles/MoveItemStyle'
 import LocationInfo from './LocationInfo'
 import { Images } from '../Themes'
+import I18n from 'react-native-i18n'
+import MoveActionButton from "./MoveActionButton"
 
 interface MoveItemProps {
   pickupLocationStreet: string,
@@ -61,6 +63,10 @@ export default class MoveItem extends React.Component<MoveItemProps, MoveItemSta
       friction: 5,
       useNativeDriver: true
     }).start()
+  }
+
+  moveActionPressed = () => {
+
   }
 
   render () {
@@ -124,12 +130,27 @@ export default class MoveItem extends React.Component<MoveItemProps, MoveItemSta
                   isCollapsed={this.props.isCollapsed}
                 />
               </View>
-
             </View>
-              <View style={styles.info}>
-                <Text style={styles.name}>Volume</Text>
-                {/* <Text style={styles.title}>{'${this.props.volume} ${this.props.volume} ${this.props.volume}'}</Text> */}
+            <View style={styles.moreInfoContainer}>
+              <View style={styles.moreInfoLeft}>
+                <Text style={styles.label}>{I18n.t('Desired Time')}</Text>
+                <Text style={styles.timeText}>{this.props.date}</Text>
+                <Text style={styles.timeText}>{this.props.desiredTimeSlot}</Text>
               </View>
+              <View style={styles.moreInfoRight}>
+                <Text style={styles.label}>{I18n.t('Volume')}</Text>
+                <Text style={styles.volumeText}>{`${this.props.volume} ${I18n.t('cubic meters')}`}</Text>
+                <View style={styles.actionButton}>
+                  <MoveActionButton
+                    inactiveText={I18n.t('Start')}
+                    activeText={I18n.t('Finish')}
+                    inactiveIcon={Image.startMoveIcon}
+                    activeIcon={Image.finishMoveIcon}
+                    onPress={this.moveActionPressed}
+                    on={this.state.isActive} />
+                </View>
+              </View>
+            </View>
 
           </Animated.View>
         </TouchableWithoutFeedback>

@@ -19,7 +19,7 @@ export default StyleSheet.create({
       height: 1
     },
     shadowRadius: 5,
-    shadowColor: Colors.redShadow,
+    shadowColor: Colors.highlight,
     shadowOpacity: 1
   },
   finished: {
@@ -37,38 +37,37 @@ export default StyleSheet.create({
   location: {
     flex: 0.4
   },
-  title: {
-    ...Fonts.style.h6,
-    color: Colors.text,
-    letterSpacing: 0
-  },
-  name: {
-    ...Fonts.style.description,
-    color: Colors.lightText,
-    letterSpacing: 0,
-    lineHeight: 18
-  },
-  moreInfo: {
+  moreInfoContainer: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 13,
-    paddingHorizontal: Metrics.smallMargin,
+    alignItems: 'stretch',
+    padding: Metrics.smallMargin,
     borderBottomLeftRadius: Metrics.cardRadius,
     borderBottomRightRadius: Metrics.cardRadius,
     backgroundColor: Colors.silver
   },
-  details: {
-    flexDirection: 'row'
+  moreInfoLeft: {
+    flex: 0.4,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start'
   },
-  detail: {
-    paddingRight: Metrics.doubleBaseMargin
+  moreInfoRight: {
+    flex: 0.3,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end'
   },
-  detailLabel: {
+  label: {
     ...Fonts.style.small,
     color: Colors.lightText,
     letterSpacing: 0
   },
-  detailText: {
+  timeText: {
+    ...Fonts.style.normal,
+    color: Colors.primary,
+    letterSpacing: 0
+  },
+  volumeText: {
     ...Fonts.style.normal,
     color: Colors.lightText,
     letterSpacing: 0
@@ -77,5 +76,9 @@ export default StyleSheet.create({
     margin: Metrics.smallMargin,
     alignSelf: 'center',
     flex: 0.1
+  },
+  actionButton: {
+    flex: 1,
+    alignItems: 'stretch'
   },
 })
