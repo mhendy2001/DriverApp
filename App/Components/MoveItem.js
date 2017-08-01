@@ -76,12 +76,13 @@ export default class MoveItem extends React.Component<MoveItemProps, MoveItemSta
 
   }
 
-  showDirections = () => {
-    this.openMaps()
+  showDirections = (latitude, longitude) => {
+    this.openMaps(latitude, longitude)
   }
 
   openMaps (latitude, longitude) {
     let location = latitude + ',' + longitude
+    console.log('Location = ' + location)
     const googleMaps = `comgooglemaps://?daddr=${location}`
     const appleMaps = `http://maps.apple.com?daddr=${location}`
 
