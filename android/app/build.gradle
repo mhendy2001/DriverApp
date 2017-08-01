@@ -91,7 +91,7 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
         applicationId "com.driverapp"
@@ -133,6 +133,8 @@ android {
 }
 
 dependencies {
+// From node_modules
+    compile project(':react-native-smart-splashscreen')
     compile project(':react-native-i18n')
     compile project(':react-native-device-info')
     compile fileTree(dir: "libs", include: ["*.jar"])

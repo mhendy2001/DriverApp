@@ -17,7 +17,7 @@
     {
       "id": 1,
       "volume": 5.0,
-      "date": "02-08-2017",
+      "date": "2017-08-02",
       "desired_time_slot": 1,
       "pickup_location": {
         "street": "Friedrichstraße 113",
@@ -37,7 +37,7 @@
     {
       "id": 2,
       "volume": 2.0,
-      "date": "02-08-2017",
+      "date": "2017-08-02",
       "desired_time_slot": 2,
       "pickup_location": {
         "street": "Potsdamer Straße 45",
@@ -57,7 +57,7 @@
     {
       "id": 3,
       "volume": 3.0,
-      "date": "03-08-2017",
+      "date": "2017-08-05",
       "desired_time_slot": 2,
       "pickup_location": {
         "street": "Zeil 89",

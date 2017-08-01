@@ -9,9 +9,10 @@ interface LocationInfoProps {
   postcode: string,
   latitude: number,
   longitude: number,
-  showDirections (): void,
+  showDirections(): void,
   isCollapsed: boolean
 }
+
 
 const LocationInfo = (props: LocationInfoProps) => {
   const { street, city, postcode, latitude, longitude, isCollapsed } = props

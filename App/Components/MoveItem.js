@@ -1,10 +1,17 @@
 import React from 'react'
-import { View, Text, Image, TouchableWithoutFeedback, LayoutAnimation, Animated } from 'react-native'
+import { View,
+        Text,
+        Image,
+        TouchableWithoutFeedback,
+        LayoutAnimation,
+        Animated,
+        Linking } from 'react-native'
 import styles from './Styles/MoveItemStyle'
 import LocationInfo from './LocationInfo'
 import { Images } from '../Themes'
 import I18n from 'react-native-i18n'
 import MoveActionButton from "./MoveActionButton"
+import { format } from 'date-fns'
 
 interface MoveItemProps {
   pickupLocationStreet: string,
@@ -69,6 +76,28 @@ export default class MoveItem extends React.Component<MoveItemProps, MoveItemSta
 
   }
 
+  showDirections = () => {
+    this.openMaps()
+  }
+
+  openMaps (latitude, longitude) {
+    let location = latitude + ',' + longitude
+    const googleMaps = `comgooglemaps://?daddr=${location}`
+    const appleMaps = `http://maps.apple.com?daddr=${location}`
+
+    Linking.canOpenURL(googleMaps).then((supported) => {
+      if (supported) {
+        Linking.openURL(googleMaps)
+      } else {
+        Linking.canOpenURL(appleMaps).then((supported) =>
+          supported
+          ? Linking.openURL(appleMaps)
+          : window.alert('Unable to find maps application.')
+        )
+      }
+    })
+  }
+
   render () {
     const {
       pickupLocationStreet,
@@ -117,6 +146,7 @@ export default class MoveItem extends React.Component<MoveItemProps, MoveItemSta
                   latitude={this.props.pickupLocationLatitude}
                   longitude={this.props.pickupLocationLongitude}
                   isCollapsed={this.props.isCollapsed}
+                  showDirections={() => this.showDirections(pickupLocationLatitude, pickupLocationLongitude)}
                 />
               </View>
               <Image style={styles.image} source={Images.truckIcon}></Image>
@@ -128,13 +158,14 @@ export default class MoveItem extends React.Component<MoveItemProps, MoveItemSta
                   latitude={this.props.deliveryLocationLatitude}
                   longitude={this.props.deliveryLocationLongitude}
                   isCollapsed={this.props.isCollapsed}
+                  showDirections={() => this.showDirections(deliveryLocationLatitude, deliveryLocationLongitude)}
                 />
               </View>
             </View>
             <View style={styles.moreInfoContainer}>
               <View style={styles.moreInfoLeft}>
                 <Text style={styles.label}>{I18n.t('Desired Time')}</Text>
-                <Text style={styles.timeText}>{this.props.date}</Text>
+                <Text style={styles.timeText}>{format(this.props.date, 'ddd, d MMM YYYY')}</Text>
                 <Text style={styles.timeText}>{this.props.desiredTimeSlot}</Text>
               </View>
               <View style={styles.moreInfoRight}>
@@ -144,8 +175,8 @@ export default class MoveItem extends React.Component<MoveItemProps, MoveItemSta
                   <MoveActionButton
                     inactiveText={I18n.t('Start')}
                     activeText={I18n.t('Finish')}
-                    inactiveIcon={Image.startMoveIcon}
-                    activeIcon={Image.finishMoveIcon}
+                    inactiveIcon={Image.truckIcon}
+                    activeIcon={Image.truckIcon}
                     onPress={this.moveActionPressed}
                     on={this.state.isActive} />
                 </View>

@@ -9,11 +9,9 @@ import {
   assoc,
   map,
   sum,
-  findIndex
+  findIndex,
+  propEq
 } from 'ramda'
-
-// For empty lists
-// import AlertMessage from '../Components/AlertMessage'
 
 // Styles
 import styles from './Styles/MovesListStyle'
@@ -21,6 +19,10 @@ import { Images } from '../Themes'
 import I18n from 'react-native-i18n'
 import ListGradient from '../Components/ListGradient'
 import MoveItem from '../Components/MoveItem'
+import { format } from 'date-fns'
+
+
+const timeSlotIndex = (id, timeSlots) => findIndex(propEq('id', id), timeSlots)
 
 class MovesList extends Component {
   static navigationOptions = {
@@ -30,11 +32,12 @@ class MovesList extends Component {
     )
   }
 
+
   constructor (props) {
     super(props)
 
     const { moves, timeSlots, currentTime } = props
-    const data = moves
+    const data = this._mergeTimeSlot(timeSlots, moves)
     const appState = AppState.currentState
 
     this.state = {data, appState}
@@ -52,10 +55,33 @@ class MovesList extends Component {
     if (__DEV__ && console.tron) {
       console.tron.log({mesage: 'componentWillReceiveProps', object: newProps})
     }
-    const { moves } = newProps
+    const { moves, timeSlots, currentTime } = newProps
     this.setState({
-          data: moves
+          data: this._mergeTimeSlot(timeSlots, moves)
         })
+  }
+
+  onPress = (item) => {
+
+  }
+
+  _mergeTimeSlot = (timeSlots, moves) => {
+    if (!moves) {
+      return null
+    }
+    let newMoves =  moves.map(function(move){
+      var index = timeSlotIndex(move.desired_time_slot, timeSlots)
+      var timeSlot = null
+      var formattedTime = null
+      var newMove = move
+      if (index > -1) {
+        timeSlot = timeSlots[index]
+        formattedTime = timeSlot.name + ' ( ' + timeSlot.start_time + ' - ' + timeSlot.end_time + ' )'
+      }
+      newMove = move.merge({desired_time_slot: formattedTime, date: Date.parse(newMove.date)})
+      return newMove
+    })
+    return newMoves
   }
 
   _handleAppStateChange = (nextAppState) => {
@@ -104,6 +130,7 @@ class MovesList extends Component {
           deliveryLocationPostcode={item.delivery_location.post_code}
           deliveryLocationLatitude={item.delivery_location.latitude}
           deliveryLocationLongitude={item.delivery_location.longitude}
+          onPress={() => this.onPress(item)}
         />
       )
   }
@@ -136,6 +163,8 @@ const mapStateToProps = (state) => {
   }
   return {
         moves: state.moves.moves,
+        timeSlots: state.moves.timeSlots,
+        currentTime: new Date(state.moves.currentTime)
   }
 }
 

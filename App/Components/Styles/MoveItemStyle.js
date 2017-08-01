@@ -48,7 +48,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.silver
   },
   moreInfoLeft: {
-    flex: 0.4,
+    flex: 0.5,
     justifyContent: 'flex-start',
     alignItems: 'flex-start'
   },
