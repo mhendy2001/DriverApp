@@ -2,16 +2,29 @@ import React, { Component } from 'react'
 import {
   ScrollView,
   Text,
-  KeyboardAvoidingView,
+  AppState,
   Image } from 'react-native'
 import { connect } from 'react-redux'
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
+import MovesActions from '../Redux/MovesRedux'
+import {
+  merge,
+  groupWith,
+  contains,
+  assoc,
+  map,
+  sum,
+  findIndex,
+  propEq
+} from 'ramda'
+import Utils from '../Lib/Utils'
 
 // Styles
 import styles from './Styles/NextMoveScreenStyle'
 import { Images } from '../Themes'
 import I18n from 'react-native-i18n'
+import ListGradient from '../Components/ListGradient'
+import MoveItem from '../Components/MoveItem'
+import { format } from 'date-fns'
 
 class NextMoveScreen extends Component {
   static navigationOptions = {
@@ -21,24 +34,121 @@ class NextMoveScreen extends Component {
     )
   }
 
+  constructor (props) {
+    super(props)
+
+    if (__DEV__ && console.tron) {
+      console.tron.log({mesage: 'NextMoveScreen: constructor', object: props})
+    }
+
+    const { move, timeSlots } = props
+    const appState = AppState.currentState
+
+    this.state = {move: Utils.mergeMoveTimeSlot(timeSlots, move), appState}
+
+  }
+
+
+  componentDidMount () {
+    AppState.addEventListener('change', this._handleAppStateChange)
+  }
+
+  componentWillUnmount () {
+    AppState.removeEventListener('change', this._handleAppStateChange)
+  }
+
+  componentWillReceiveProps (newProps) {
+    if (__DEV__ && console.tron) {
+      console.tron.log({mesage: 'NextMoveScreen: componentWillReceiveProps', object: newProps})
+    }
+    const { move, timeSlots } = newProps
+    this.setState({
+          move: Utils.mergeMoveTimeSlot(timeSlots, move)
+        })
+  }
+
+  _handleAppStateChange = (nextAppState) => {
+    const { appState } = this.state
+    if (__DEV__ && console.tron) {
+      console.tron.log('_handleAppStateChange')
+    }
+    if (appState.match(/inactive|background/) && nextAppState === 'active') {
+      this.props.getMove()
+    }
+    this.setState({appState: nextAppState})
+  }
+
+  onMoveActionPressed = (move) => {
+    if (move.status === 'scheduled') {
+          move.status = 'started'
+          this.props.updateMove(move)
+          this.setState({
+            move: this.state.move
+          })
+    }
+    else if (move.status === 'started') {
+      move.status = 'finished'
+      this.props.updateMove(move)
+    }
+    else {
+        //finished should be removed from list and kept in history which has no start/finish button
+        //We are doing nothing here
+    }
+  }
+
   render () {
+    if (__DEV__ && console.tron) {
+      console.tron.log({mesage: 'NextMoveScreen: componentWillReceiveProps', object: this.state})
+    }
+
+    const {move} = this.state
+    let item = move
+    if (typeof item === "undefined" || item === null) {
+      return (<Text style={styles.label}> I18n.t('No Move found') </Text>)
+    }
     return (
       <ScrollView style={styles.container}>
-        <KeyboardAvoidingView behavior='position'>
-          <Text>NextMoveScreen</Text>
-        </KeyboardAvoidingView>
+      <MoveItem
+        volume={item.volume}
+        date={item.date}
+        desiredTimeSlot={item.desired_time_slot}
+        pickupLocationStreet={item.pickup_location.street}
+        pickupLocationCity={item.pickup_location.city}
+        pickupLocationPostcode={item.pickup_location.post_code}
+        pickupLocationLatitude={item.pickup_location.latitude}
+        pickupLocationLongitude={item.pickup_location.longitude}
+        deliveryLocationStreet={item.delivery_location.street}
+        deliveryLocationCity={item.delivery_location.city}
+        deliveryLocationPostcode={item.delivery_location.post_code}
+        deliveryLocationLatitude={item.delivery_location.latitude}
+        deliveryLocationLongitude={item.delivery_location.longitude}
+        onPress={() => this.onPress(item)}
+        onMoveActionPressed={() => this.onMoveActionPressed(item)}
+      />
       </ScrollView>
     )
   }
 }
 
 const mapStateToProps = (state) => {
+  if (__DEV__ && console.tron) {
+    console.tron.log({mesage: 'NextMoveScreen: mapStateToProps', object: state.moves.move})
+  }
   return {
+    move: state.moves.move,
+    timeSlots: state.moves.timeSlots
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    updateMove: (move) => {
+      if (__DEV__ && console.tron) {
+        console.tron.log({mesage: 'NextMoveScreen: mapDispatchToProps', object: move})
+      }
+      dispatch(MovesActions.updateMove(move))
+    },
+    getMove: () => dispatch(MovesActions.getMove())
   }
 }
 

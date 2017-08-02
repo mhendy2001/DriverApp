@@ -4,6 +4,7 @@
       "volume": 5.0,
       "date": "2017-08-02",
       "desired_time_slot": 1,
+      "status": "scheduled",
       "pickup_location": {
         "street": "Friedrichstraße 113",
         "post_code": "10117",
@@ -24,6 +25,7 @@
       "volume": 2.0,
       "date": "2017-08-02",
       "desired_time_slot": 2,
+      "status": "scheduled",
       "pickup_location": {
         "street": "Potsdamer Straße 45",
         "post_code": "10785",
@@ -44,6 +46,7 @@
       "volume": 3.0,
       "date": "2017-08-05",
       "desired_time_slot": 2,
+      "status": "scheduled",      
       "pickup_location": {
         "street": "Zeil 89",
         "post_code": "60313",

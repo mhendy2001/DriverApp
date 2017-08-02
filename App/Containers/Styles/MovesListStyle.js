@@ -4,8 +4,8 @@ import { ApplicationStyles, Metrics, Colors } from '../../Themes'
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   container: {
-    flex: 1,
-    backgroundColor: Colors.background
+    width: '100%',
+    backgroundColor: Colors.transparent
   },
   row: {
     flex: 1,
@@ -20,6 +20,7 @@ export default StyleSheet.create({
     color: Colors.text
   },
   listContent: {
+    backgroundColor: Colors.transparent,
     paddingTop: Metrics.doubleBaseMargin,
     paddingBottom: Metrics.baseMargin * 8
   }

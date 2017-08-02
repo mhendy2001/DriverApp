@@ -12,7 +12,7 @@ const getCurrentTime = () => {
 }
 
 export function * trackTime () {
-  let time = yield getCurrentTime()
+  var time = yield getCurrentTime()
   yield put(MovesActions.updateTime(time))
   while (true) {
     yield call(delay, updateDelay)

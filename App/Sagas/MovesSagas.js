@@ -17,3 +17,25 @@ export function * getMoves (api, action) {
     yield put(MovesActions.fetchFailure())
   }
 }
+
+export function * updateMove (api, action) {
+  const { move } = action
+  const postMoveResponse = yield call(api.updateMove, move)
+
+  if (postMoveResponse.ok) {
+    yield put(MovesActions.moveUpdated(null))
+  } else {
+    yield put(MovesActions.moveUpdated(postMoveResponse.problem))
+  }
+}
+
+export function * getMove (api, action) {
+  const { id } = action
+  const getMoveResponse = yield call(api.getMove,id)
+  if (getMoveResponse.ok) {
+    const move = path(['data'], getMoveResponse)
+    yield put(MovesActions.moveFetched(move))
+  } else {
+    yield put(MovesActions.moveFetched(null))
+  }
+}

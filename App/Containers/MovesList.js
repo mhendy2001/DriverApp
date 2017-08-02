@@ -12,6 +12,7 @@ import {
   findIndex,
   propEq
 } from 'ramda'
+import Utils from '../Lib/Utils'
 
 // Styles
 import styles from './Styles/MovesListStyle'
@@ -21,8 +22,6 @@ import ListGradient from '../Components/ListGradient'
 import MoveItem from '../Components/MoveItem'
 import { format } from 'date-fns'
 
-
-const timeSlotIndex = (id, timeSlots) => findIndex(propEq('id', id), timeSlots)
 
 class MovesList extends Component {
   static navigationOptions = {
@@ -35,9 +34,11 @@ class MovesList extends Component {
 
   constructor (props) {
     super(props)
-
+    if (__DEV__ && console.tron) {
+      console.tron.log({mesage: 'constructor', object: props})
+    }
     const { moves, timeSlots, currentTime } = props
-    const data = this._mergeTimeSlot(timeSlots, moves)
+    const data = Utils.mergeMovesTimeSlot(timeSlots, moves)
     const appState = AppState.currentState
 
     this.state = {data, appState}
@@ -57,7 +58,7 @@ class MovesList extends Component {
     }
     const { moves, timeSlots, currentTime } = newProps
     this.setState({
-          data: this._mergeTimeSlot(timeSlots, moves)
+          data: Utils.mergeMovesTimeSlot(timeSlots, moves)
         })
   }
 
@@ -65,24 +66,6 @@ class MovesList extends Component {
 
   }
 
-  _mergeTimeSlot = (timeSlots, moves) => {
-    if (!moves) {
-      return null
-    }
-    let newMoves =  moves.map(function(move){
-      var index = timeSlotIndex(move.desired_time_slot, timeSlots)
-      var timeSlot = null
-      var formattedTime = null
-      var newMove = move
-      if (index > -1) {
-        timeSlot = timeSlots[index]
-        formattedTime = timeSlot.name + ' ( ' + timeSlot.start_time + ' - ' + timeSlot.end_time + ' )'
-      }
-      newMove = move.merge({desired_time_slot: formattedTime, date: Date.parse(newMove.date)})
-      return newMove
-    })
-    return newMoves
-  }
 
   _handleAppStateChange = (nextAppState) => {
     const { appState } = this.state
@@ -105,16 +88,7 @@ class MovesList extends Component {
     return { length, offset, index }
   }
 
-  // if value exists, create the function calling it, otherwise false
-  funcOrFalse = (func, val) => val ? () => func.call(this, val) : false
-
   renderItem = ({item}) => {
-    if (__DEV__ && console.tron) {
-      console.tron.log({mesage: 'renderItem', object: item})
-    }
-    const isActive = true
-    const isFinished = false
-
       return (
         <MoveItem
           volume={item.volume}
@@ -131,17 +105,15 @@ class MovesList extends Component {
           deliveryLocationLatitude={item.delivery_location.latitude}
           deliveryLocationLongitude={item.delivery_location.longitude}
           onPress={() => this.onPress(item)}
+          isActive={item.status!=='scheduled'}
         />
       )
   }
 
   render () {
     const { data } = this.state
-    if (__DEV__ && console.tron) {
-      console.tron.log({mesage: 'render', object: this.state})
-    }
     return (
-      <View style={styles.container}>
+      <ListGradient style={styles.container}>
         <FlatList
           ref='movesList'
           data={data}
@@ -152,15 +124,12 @@ class MovesList extends Component {
           getItemLayout={this.getItemLayout}
           showsVerticalScrollIndicator={false}
         />
-      </View>
+      </ListGradient>
     )
   }
 }
 
 const mapStateToProps = (state) => {
-  if (__DEV__ && console.tron) {
-    console.tron.log({mesage: 'mapStateToProps', object: state})
-  }
   return {
         moves: state.moves.moves,
         timeSlots: state.moves.timeSlots,

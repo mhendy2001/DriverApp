@@ -4,14 +4,14 @@ import { View,
         Image,
         TouchableWithoutFeedback,
         LayoutAnimation,
-        Animated,
-        Linking } from 'react-native'
+        Animated } from 'react-native'
 import styles from './Styles/MoveItemStyle'
 import LocationInfo from './LocationInfo'
 import { Images } from '../Themes'
 import I18n from 'react-native-i18n'
 import MoveActionButton from "./MoveActionButton"
 import { format } from 'date-fns'
+import Utils from '../Lib/Utils'
 
 interface MoveItemProps {
   pickupLocationStreet: string,
@@ -33,7 +33,8 @@ interface MoveItemProps {
   isActive: boolean,
   currentTime: Date,
   isCollapsed: boolean,
-  onPress (): void
+  onPress (): void,
+  onMoveActionPressed (): void
 }
 
 interface MoveItemState {
@@ -72,31 +73,8 @@ export default class MoveItem extends React.Component<MoveItemProps, MoveItemSta
     }).start()
   }
 
-  moveActionPressed = () => {
-
-  }
-
   showDirections = (latitude, longitude) => {
-    this.openMaps(latitude, longitude)
-  }
-
-  openMaps (latitude, longitude) {
-    let location = latitude + ',' + longitude
-    console.log('Location = ' + location)
-    const googleMaps = `comgooglemaps://?daddr=${location}`
-    const appleMaps = `http://maps.apple.com?daddr=${location}`
-
-    Linking.canOpenURL(googleMaps).then((supported) => {
-      if (supported) {
-        Linking.openURL(googleMaps)
-      } else {
-        Linking.canOpenURL(appleMaps).then((supported) =>
-          supported
-          ? Linking.openURL(appleMaps)
-          : window.alert('Unable to find maps application.')
-        )
-      }
-    })
+    Utils.openMaps(latitude, longitude)
   }
 
   render () {
@@ -114,12 +92,9 @@ export default class MoveItem extends React.Component<MoveItemProps, MoveItemSta
       volume,
       date,
       desiredTimeSlot,
-      isCollapsed
+      isActive
     } = this.props
 
-    if (__DEV__ && console.tron) {
-      console.tron.log({mesage: 'render', object: this.props})
-    }
     const animatedStyle = {
       transform: [{ scale: this.state.animatedSize }]
     }
@@ -172,14 +147,14 @@ export default class MoveItem extends React.Component<MoveItemProps, MoveItemSta
               <View style={styles.moreInfoRight}>
                 <Text style={styles.label}>{I18n.t('Volume')}</Text>
                 <Text style={styles.volumeText}>{`${this.props.volume} ${I18n.t('cubic meters')}`}</Text>
-                <View style={styles.actionButton}>
-                  <MoveActionButton
+                <View style={styles.actionButton}>{
+                  this.props.onMoveActionPressed && <MoveActionButton
                     inactiveText={I18n.t('Start')}
                     activeText={I18n.t('Finish')}
                     inactiveIcon={Image.truckIcon}
                     activeIcon={Image.truckIcon}
-                    onPress={this.moveActionPressed}
-                    on={this.state.isActive} />
+                    onPress={this.props.onMoveActionPressed}
+                    on={this.state.isActive} />}
                 </View>
               </View>
             </View>

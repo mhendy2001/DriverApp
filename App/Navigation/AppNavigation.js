@@ -27,8 +27,8 @@ const TabNav = TabNavigator({
   tabBarPosition: 'bottom',
   animationEnabled: true,
   swipeEnabled: true,
-  headerMode: 'none',
-  initialRouteName: 'AllMoves',
+  headerMode: 'screen',
+  initialRouteName: 'NextMoves',
   tabBarOptions: {
     style: styles.tabBar,
     labelStyle: styles.tabBarLabel,

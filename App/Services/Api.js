@@ -37,8 +37,10 @@ const create = (baseURL = 'https://api.movinga.com/') => {
   // Since we can't hide from that, we embrace it by getting out of the
   // way at this level.
   //
-  const getMoves = () => api.get(DebugConfig.useJsonServer ? 'moves' : '')
-  const getTimeSlots = () => api.get(DebugConfig.useJsonServer ? 'time_slots' : '')
+  const getMoves = () => api.get('moves')
+  const getTimeSlots = () => api.get('timeSlots')
+  const updateMove = (move) => api.put('moves/' + move.id, move)
+  const getMove = (id=null) => api.get('moves/' + ((id === null)?'next':id))
 
   // ------
   // STEP 3
@@ -55,7 +57,9 @@ const create = (baseURL = 'https://api.movinga.com/') => {
   return {
     // a list of the API functions from step 2
     getMoves,
-    getTimeSlots
+    getTimeSlots,
+    updateMove,
+    getMove
   }
 }
 

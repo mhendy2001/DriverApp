@@ -9,7 +9,11 @@ const { Types, Creators } = createActions({
   fetchFailure: null,
   getMoves: null,
   trackTime: null,
-  updateTime: ['time']
+  updateTime: ['time'],
+  updateMove: ['move'],
+  moveUpdated: ['error'],
+  getMove: ['id'],
+  moveFetched: ['move']
 })
 
 export const MovesTypes = Types
@@ -23,7 +27,8 @@ export const INITIAL_STATE = Immutable({
   timeSlots: null,
   fetching: false,
   error: null,
-  time: initialTime
+  time: initialTime,
+  move: null
 })
 
 /* ------------- Reducers ------------- */
@@ -34,6 +39,9 @@ export const fetchMoves = (state) =>
 
 // moves fetched successful
 export const fetchSuccess = (state, action) => {
+  if (__DEV__ && console.tron) {
+    console.tron.log({mesage: 'fetchSuccess', object: state})
+  }
   const { moves, timeSlots } = action
   return state.merge({ fetching: false, error: null, moves: moves, timeSlots: timeSlots })
 }
@@ -48,11 +56,26 @@ export const fetchFailure = (state) =>
     return state.merge({ time: time, moves: moves, timeSlots: timeSlots })
   }
 
+  export const moveUpdated = (state, action) => {
+    const { error } = action
+    return state.merge({ error: error, move: state.move, timeSlots: state.timeSlots })
+  }
+
+  export const moveFetched = (state, action) => {
+    if (__DEV__ && console.tron) {
+      console.tron.log({mesage: 'moveFetched', object: state})
+    }
+    const { move } = action
+    return state.merge({ move: move })
+  }
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.FETCH_MOVES]: fetchMoves,
   [Types.FETCH_SUCCESS]: fetchSuccess,
   [Types.FETCH_FAILURE]: fetchFailure,
-  [Types.UPDATE_TIME]: updateTime
+  [Types.UPDATE_TIME]: updateTime,
+  [Types.MOVE_UPDATED]: moveUpdated,
+  [Types.MOVE_FETCHED]: moveFetched
 })
