@@ -107,6 +107,7 @@ class NextMoveScreen extends Component {
       return (<Text style={styles.label}> I18n.t('No Move found') </Text>)
     }
     return (
+      <ListGradient style={styles.container}>
       <ScrollView style={styles.container}>
       <MoveItem
         volume={item.volume}
@@ -126,6 +127,7 @@ class NextMoveScreen extends Component {
         onMoveActionPressed={() => this.onMoveActionPressed(item)}
       />
       </ScrollView>
+      </ListGradient>
     )
   }
 }

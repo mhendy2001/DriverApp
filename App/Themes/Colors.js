@@ -23,6 +23,7 @@ const colors = {
   banner: '#5F3E63',
   text: '#E0D7E5',
   primary: '#FF5531',
+  primary_dark: '#C24717',
   highlight: '#FF5146',
   secondary: '#003C59'
 

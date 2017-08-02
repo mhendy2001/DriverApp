@@ -3,6 +3,10 @@ package com.driverapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
+import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
+import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.i18n.reactnativei18n.ReactNativeI18n;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.facebook.react.ReactNativeHost;
@@ -26,6 +30,10 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactNativePushNotificationPackage(),
+            new RCTSplashScreenPackage(),
+            new LinearGradientPackage(),
+            new ReactNativeConfigPackage(),
             new ReactNativeI18n(),
             new RNDeviceInfo(),
               new RCTSplashScreenPackage()    //register Module
