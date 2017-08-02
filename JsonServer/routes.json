@@ -1,5 +1,5 @@
 {
   "/moves": "/moves",
-  "/moves/next": "/moves/next",  
+  "/moves/next": "/moves?_sort=date,desired_time_slot&_order=asc&_start=0&_limit=1",
   "/timeSlots": "/time_slots"
 }

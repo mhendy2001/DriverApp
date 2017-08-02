@@ -92,8 +92,8 @@ class MovesList extends Component {
       return (
         <MoveItem
           volume={item.volume}
-          date={item.date}
-          desiredTimeSlot={item.desired_time_slot}
+          date={item.date_display}
+          desiredTimeSlot={item.desired_time_slot_display}
           pickupLocationStreet={item.pickup_location.street}
           pickupLocationCity={item.pickup_location.city}
           pickupLocationPostcode={item.pickup_location.post_code}

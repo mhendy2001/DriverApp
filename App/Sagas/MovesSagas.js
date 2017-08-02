@@ -33,8 +33,19 @@ export function * getMove (api, action) {
   const { id } = action
   const getMoveResponse = yield call(api.getMove,id)
   if (getMoveResponse.ok) {
-    const move = path(['data'], getMoveResponse)
+    const moves = path(['data'], getMoveResponse)
+    const move = path(['0'], moves)
     yield put(MovesActions.moveFetched(move))
+  } else {
+    yield put(MovesActions.moveFetched(null))
+  }
+}
+
+export function * removeMove (api, action) {
+  const { id } = action
+  const removeMoveResponse = yield call(api.removeMove,id)
+  if (removeMoveResponse.ok) {
+    yield getMove(api, {id: null})
   } else {
     yield put(MovesActions.moveFetched(null))
   }

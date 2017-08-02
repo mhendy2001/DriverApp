@@ -47,7 +47,7 @@ const mergeMovesTimeSlot = (timeSlots, moves) => {
       timeSlot = timeSlots[index]
       formattedTime = timeSlot.name + ' ( ' + timeSlot.start_time + ' - ' + timeSlot.end_time + ' )'
     }
-    newMove = move.merge({desired_time_slot: formattedTime, date: Date.parse(newMove.date)})
+    newMove = move.merge({desired_time_slot_display: formattedTime, date_display: Date.parse(newMove.date)})
     return newMove
   })
   return newMoves
@@ -67,7 +67,7 @@ const mergeMoveTimeSlot = (timeSlots, move) => {
       timeSlot = timeSlots[index]
       formattedTime = timeSlot.name + ' ( ' + timeSlot.start_time + ' - ' + timeSlot.end_time + ' )'
     }
-    return move.merge({desired_time_slot: formattedTime, date: Date.parse(move.date)})
+    return move.merge({desired_time_slot_display: formattedTime, date_display: Date.parse(move.date)})
 }
 
 const oneHourMillis = 60 * 60 * 1000

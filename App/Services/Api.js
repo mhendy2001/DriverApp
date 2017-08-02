@@ -41,6 +41,7 @@ const create = (baseURL = 'https://api.movinga.com/') => {
   const getTimeSlots = () => api.get('timeSlots')
   const updateMove = (move) => api.put('moves/' + move.id, move)
   const getMove = (id=null) => api.get('moves/' + ((id === null)?'next':id))
+  const removeMove = (id) => api.delete('moves/' + id)
 
   // ------
   // STEP 3
@@ -59,7 +60,8 @@ const create = (baseURL = 'https://api.movinga.com/') => {
     getMoves,
     getTimeSlots,
     updateMove,
-    getMove
+    getMove,
+    removeMove
   }
 }
 

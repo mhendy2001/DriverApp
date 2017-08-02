@@ -13,7 +13,8 @@ const { Types, Creators } = createActions({
   updateMove: ['move'],
   moveUpdated: ['move'],
   getMove: ['id'],
-  moveFetched: ['move']
+  moveFetched: ['move'],
+  removeMove: ['id']
 })
 
 export const MovesTypes = Types
@@ -62,9 +63,6 @@ export const fetchFailure = (state) =>
   }
 
   export const moveFetched = (state, action) => {
-    if (__DEV__ && console.tron) {
-      console.tron.log({mesage: 'moveFetched', object: state})
-    }
     const { move } = action
     return state.merge({ move: move })
   }

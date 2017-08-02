@@ -35,7 +35,7 @@ export function * startup (action) {
   //start tracking time
   // yield put(MovesActions.trackTime())
 
-  yield put(MovesActions.getMove(1))
+  yield put(MovesActions.getMove(null))
 
   const moves = yield select(movesList)
   // only get if we don't have it yet

@@ -69,34 +69,36 @@ class NextMoveScreen extends Component {
   }
 
   _handleAppStateChange = (nextAppState) => {
-    const { appState } = this.state
-    if (__DEV__ && console.tron) {
-      console.tron.log('_handleAppStateChange')
-    }
+    const { appState, move } = this.state
     if (appState.match(/inactive|background/) && nextAppState === 'active') {
-      this.props.getMove()
+      this.props.getMove(move.id)
     }
     this.setState({appState: nextAppState})
   }
 
   onMoveActionPressed = (move) => {
     if (move.status === 'scheduled') {
-          let newMove = move.merge({status: 'started'})
-          if (__DEV__ && console.tron) {
-            console.tron.log({mesage: 'NextMoveScreen: onMoveActionPressed', object: newMove})
-          }
-          this.props.updateMove(newMove)
-          this.setState({
-            move: newMove
-          })
+        let newMove = move.merge({status: 'started'})
+        if (__DEV__ && console.tron) {
+          console.tron.log({mesage: 'NextMoveScreen: onMoveActionPressed', object: newMove})
+        }
+        this.props.updateMove(newMove)
     }
     else if (move.status === 'started') {
       let newMove = move.merge({status: 'finished'})
+      if (__DEV__ && console.tron) {
+        console.tron.log({mesage: 'NextMoveScreen: onMoveActionPressed', object: newMove})
+      }
       this.props.updateMove(newMove)
     }
     else {
+      if (__DEV__ && console.tron) {
+        console.tron.log({mesage: 'NextMoveScreen: onMoveActionPressed', object: move})
+      }
         //finished should be removed from list and kept in history which has no start/finish button
-        //We are doing nothing here
+        // We will send delete request to json-server to remove this move
+        this.props.removeMove(move.id)
+
     }
   }
 
@@ -110,10 +112,10 @@ class NextMoveScreen extends Component {
     if (typeof item === "undefined" || item === null) {
       return (
         <ListGradient style={styles.container}>
-          <View style={styles.labelContainer}>
-            <Text style={styles.label}> I18n.t('No Move found') </Text>
-          </View>
-      </ListGradient>
+           <View style={styles.labelContainer}>
+            <Text style={styles.label}> {I18n.t('No Move found')} </Text>
+           </View>
+       </ListGradient>
       )
     }
     return (
@@ -121,8 +123,8 @@ class NextMoveScreen extends Component {
         <ScrollView style={styles.container}>
           <MoveItem
             volume={item.volume}
-            date={item.date}
-            desiredTimeSlot={item.desired_time_slot}
+            date={item.date_display}
+            desiredTimeSlot={item.desired_time_slot_display}
             pickupLocationStreet={item.pickup_location.street}
             pickupLocationCity={item.pickup_location.city}
             pickupLocationPostcode={item.pickup_location.post_code}
@@ -160,7 +162,8 @@ const mapDispatchToProps = (dispatch) => {
       }
       dispatch(MovesActions.updateMove(move))
     },
-    getMove: () => dispatch(MovesActions.getMove())
+    getMove: (id) => dispatch(MovesActions.getMove(id)),
+    removeMove: (id) => dispatch(MovesActions.removeMove(id))    
   }
 }
 
