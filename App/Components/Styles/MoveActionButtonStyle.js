@@ -38,7 +38,7 @@ const MoveActionButtonStyle: MoveActionButtonStyleType = {
     color: Colors.primary
   },
   activeText: {
-      color: Colors.lightText,
+      color: Colors.snow,
   }
 }
 
