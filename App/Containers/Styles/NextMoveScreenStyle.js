@@ -4,9 +4,15 @@ import { ApplicationStyles, Colors } from '../../Themes/'
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   label: {
-    flex: 1,
+    width: '100%',
+    height: '100%',
     justifyContent: 'center',
+    alignSelf: 'center',
     color: Colors.text
+  },
+  labelView: {
+    flex: 1,
+    alignItems: 'center'
   }
 
 })

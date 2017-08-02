@@ -17,6 +17,7 @@ const MoveActionButtonStyle: MoveActionButtonStyleType = {
     justifyContent: 'center',
     paddingHorizontal: 5,
     marginLeft: 15,
+    marginRight: 15,
     borderWidth: 1,
     borderColor: Colors.primary,
     borderRadius: 100,

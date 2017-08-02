@@ -11,7 +11,7 @@ const { Types, Creators } = createActions({
   trackTime: null,
   updateTime: ['time'],
   updateMove: ['move'],
-  moveUpdated: ['error'],
+  moveUpdated: ['move'],
   getMove: ['id'],
   moveFetched: ['move']
 })
@@ -57,8 +57,8 @@ export const fetchFailure = (state) =>
   }
 
   export const moveUpdated = (state, action) => {
-    const { error } = action
-    return state.merge({ error: error, move: state.move, timeSlots: state.timeSlots })
+    const { move } = action
+    return state.merge({ move: move, timeSlots: state.timeSlots })
   }
 
   export const moveFetched = (state, action) => {

@@ -27,18 +27,13 @@ interface MoveItemProps {
   volume: number,
   date: Date,
   desiredTimeSlot: string,
-  isFinished: boolean,
-  hasReminder: boolean,
-  isCurrentDay: boolean,
-  isActive: boolean,
-  currentTime: Date,
+  isStarted: boolean,
   isCollapsed: boolean,
   onPress (): void,
   onMoveActionPressed (): void
 }
 
 interface MoveItemState {
-  isActive: boolean,
   animatedSize: Animated.Value,
   isCollapsed: boolean
 }
@@ -48,7 +43,6 @@ export default class MoveItem extends React.Component<MoveItemProps, MoveItemSta
     super(props)
 
     this.state = {
-      isActive: false,
       animatedSize: new Animated.Value(1),
       isCollapsed: true
     }
@@ -92,7 +86,7 @@ export default class MoveItem extends React.Component<MoveItemProps, MoveItemSta
       volume,
       date,
       desiredTimeSlot,
-      isActive
+      isStarted
     } = this.props
 
     const animatedStyle = {
@@ -147,17 +141,20 @@ export default class MoveItem extends React.Component<MoveItemProps, MoveItemSta
               <View style={styles.moreInfoRight}>
                 <Text style={styles.label}>{I18n.t('Volume')}</Text>
                 <Text style={styles.volumeText}>{`${this.props.volume} ${I18n.t('cubic meters')}`}</Text>
-                <View style={styles.actionButton}>{
-                  this.props.onMoveActionPressed && <MoveActionButton
-                    inactiveText={I18n.t('Start')}
-                    activeText={I18n.t('Finish')}
-                    inactiveIcon={Image.truckIcon}
-                    activeIcon={Image.truckIcon}
-                    onPress={this.props.onMoveActionPressed}
-                    on={this.state.isActive} />}
-                </View>
               </View>
             </View>
+            {
+              this.props.onMoveActionPressed &&
+              <View style={styles.actionButton}>
+                <MoveActionButton
+                  inactiveText={I18n.t('Start')}
+                  activeText={I18n.t('Finish')}
+                  inactiveIcon={Image.truckIcon}
+                  activeIcon={Image.truckIcon}
+                  onPress={this.props.onMoveActionPressed}
+                  on={isStarted} />
+              </View>
+            }
 
           </Animated.View>
         </TouchableWithoutFeedback>

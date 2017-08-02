@@ -23,7 +23,7 @@ export function * updateMove (api, action) {
   const postMoveResponse = yield call(api.updateMove, move)
 
   if (postMoveResponse.ok) {
-    yield put(MovesActions.moveUpdated(null))
+    yield put(MovesActions.moveUpdated(move))
   } else {
     yield put(MovesActions.moveUpdated(postMoveResponse.problem))
   }

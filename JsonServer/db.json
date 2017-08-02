@@ -19,7 +19,7 @@
       "volume": 5,
       "date": null,
       "desired_time_slot": null,
-      "status": "scheduled",
+      "status": "finished",
       "pickup_location": {
         "street": "Friedrichstraße 113",
         "post_code": "10117",

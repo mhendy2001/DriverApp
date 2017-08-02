@@ -63,12 +63,12 @@ export default StyleSheet.create({
     letterSpacing: 0
   },
   timeText: {
-    ...Fonts.style.normal,
+    ...Fonts.style.small,
     color: Colors.primary,
     letterSpacing: 0
   },
   volumeText: {
-    ...Fonts.style.normal,
+    ...Fonts.style.small,
     color: Colors.lightText,
     letterSpacing: 0
   },
@@ -79,6 +79,7 @@ export default StyleSheet.create({
   },
   actionButton: {
     flex: 1,
-    alignItems: 'stretch'
+    alignItems: 'stretch',
+    margin: Metrics.baseMargin
   },
 })

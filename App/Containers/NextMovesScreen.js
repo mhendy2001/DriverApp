@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {
   ScrollView,
+  View,
   Text,
   AppState,
   Image } from 'react-native'
@@ -80,15 +81,18 @@ class NextMoveScreen extends Component {
 
   onMoveActionPressed = (move) => {
     if (move.status === 'scheduled') {
-          move.status = 'started'
-          this.props.updateMove(move)
+          let newMove = move.merge({status: 'started'})
+          if (__DEV__ && console.tron) {
+            console.tron.log({mesage: 'NextMoveScreen: onMoveActionPressed', object: newMove})
+          }
+          this.props.updateMove(newMove)
           this.setState({
-            move: this.state.move
+            move: newMove
           })
     }
     else if (move.status === 'started') {
-      move.status = 'finished'
-      this.props.updateMove(move)
+      let newMove = move.merge({status: 'finished'})
+      this.props.updateMove(newMove)
     }
     else {
         //finished should be removed from list and kept in history which has no start/finish button
@@ -106,31 +110,33 @@ class NextMoveScreen extends Component {
     if (typeof item === "undefined" || item === null) {
       return (
         <ListGradient style={styles.container}>
-        <Text style={styles.label}> I18n.t('No Move found') </Text>
+          <View style={styles.labelContainer}>
+            <Text style={styles.label}> I18n.t('No Move found') </Text>
+          </View>
       </ListGradient>
       )
     }
     return (
       <ListGradient style={styles.container}>
-      <ScrollView style={styles.container}>
-      <MoveItem
-        volume={item.volume}
-        date={item.date}
-        desiredTimeSlot={item.desired_time_slot}
-        pickupLocationStreet={item.pickup_location.street}
-        pickupLocationCity={item.pickup_location.city}
-        pickupLocationPostcode={item.pickup_location.post_code}
-        pickupLocationLatitude={item.pickup_location.latitude}
-        pickupLocationLongitude={item.pickup_location.longitude}
-        deliveryLocationStreet={item.delivery_location.street}
-        deliveryLocationCity={item.delivery_location.city}
-        deliveryLocationPostcode={item.delivery_location.post_code}
-        deliveryLocationLatitude={item.delivery_location.latitude}
-        deliveryLocationLongitude={item.delivery_location.longitude}
-        onPress={() => this.onPress(item)}
-        onMoveActionPressed={() => this.onMoveActionPressed(item)}
-      />
-      </ScrollView>
+        <ScrollView style={styles.container}>
+          <MoveItem
+            volume={item.volume}
+            date={item.date}
+            desiredTimeSlot={item.desired_time_slot}
+            pickupLocationStreet={item.pickup_location.street}
+            pickupLocationCity={item.pickup_location.city}
+            pickupLocationPostcode={item.pickup_location.post_code}
+            pickupLocationLatitude={item.pickup_location.latitude}
+            pickupLocationLongitude={item.pickup_location.longitude}
+            deliveryLocationStreet={item.delivery_location.street}
+            deliveryLocationCity={item.delivery_location.city}
+            deliveryLocationPostcode={item.delivery_location.post_code}
+            deliveryLocationLatitude={item.delivery_location.latitude}
+            deliveryLocationLongitude={item.delivery_location.longitude}
+            onMoveActionPressed={() => this.onMoveActionPressed(item)}
+            isStarted={item.status==='started'}
+          />
+        </ScrollView>
       </ListGradient>
     )
   }
