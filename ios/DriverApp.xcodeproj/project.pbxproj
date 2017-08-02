@@ -42,9 +42,9 @@
 		68B30F780FCE49FE90FCA207 /* libRCTSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00867BDA325C46D69A32BE17 /* libRCTSplashScreen.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		872D079A86164645AB465C0D /* libReactNativeConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E1E42CC33B648CCA07B7010 /* libReactNativeConfig.a */; };
-		A22A9BE11F30D02A00AFB1BA /* libRCTSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A22A9BCE1F30CFE600AFB1BA /* libRCTSplashScreen.a */; };
 		A22A9BE51F30D10000AFB1BA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A22A9BE31F30D10000AFB1BA /* LaunchScreen.xib */; };
 		A2BA423C1F310C7D006E2071 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = A22A9BE41F30D10000AFB1BA /* splash.png */; };
+		A2BA43071F319E56006E2071 /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2BA43031F319DF4006E2071 /* libRCTPushNotification.a */; };
 		AACE905AE3EA4834A7775D6B /* libcxxreact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8777D0A73A44CEF8EC2B8E7 /* libcxxreact.a */; };
 /* End PBXBuildFile section */
 
@@ -273,13 +273,6 @@
 			remoteGlobalIDString = CDD7BF831B2D5126006FDA75;
 			remoteInfo = RNI18nTests;
 		};
-		A22A9BCD1F30CFE600AFB1BA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A22A9BBD1F30CFE500AFB1BA /* RCTSplashScreen.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 9F90C2241D619E9400F3E238;
-			remoteInfo = RCTSplashScreen;
-		};
 		A2BA426E1F31944F006E2071 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 335E8A245D7145DE900C05D1 /* BVLinearGradient.xcodeproj */;
@@ -300,6 +293,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = EB2648DF1C7BE17A00B8F155;
 			remoteInfo = ReactNativeConfig;
+		};
+		A2BA43021F319DF4006E2071 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A2BA42FD1F319DF4006E2071 /* RCTPushNotification.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RCTPushNotification;
+		};
+		A2BA43041F319DF4006E2071 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A2BA42FD1F319DF4006E2071 /* RCTPushNotification.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D05745F1DE6004600184BB4;
+			remoteInfo = "RCTPushNotification-tvOS";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -335,9 +342,10 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8F281B2ECB324CF48FEE1D52 /* ReactNativeConfig.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeConfig.xcodeproj; path = "../node_modules/react-native-config/ios/ReactNativeConfig.xcodeproj"; sourceTree = "<group>"; };
-		A22A9BBD1F30CFE500AFB1BA /* RCTSplashScreen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSplashScreen.xcodeproj; path = "../node_modules/react-native-smart-splash-screen/ios/RCTSplashScreen/RCTSplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		A22A9BE31F30D10000AFB1BA /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		A22A9BE41F30D10000AFB1BA /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
+		A2BA42FD1F319DF4006E2071 /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../../ChainReactApp-master/node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
+		A2BA43081F319E97006E2071 /* DriverApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = DriverApp.entitlements; path = DriverApp/DriverApp.entitlements; sourceTree = "<group>"; };
 		B8777D0A73A44CEF8EC2B8E7 /* libcxxreact.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libcxxreact.a; sourceTree = "<group>"; };
 		BFE808D7E0944EC9A4A2940F /* libjschelpers.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libjschelpers.a; sourceTree = "<group>"; };
 		D3A974F09C64425895C51F5C /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
@@ -362,6 +370,7 @@
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
+				A2BA43071F319E56006E2071 /* libRCTPushNotification.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
@@ -369,7 +378,6 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				A22A9BE11F30D02A00AFB1BA /* libRCTSplashScreen.a in Frameworks */,
 				0DB6102F3E274A00A152C1F6 /* libRNDeviceInfo.a in Frameworks */,
 				25AEDEC8C046464683461A72 /* libReact.a in Frameworks */,
 				17E417F80F2D458A8D4DB54B /* libyoga.a in Frameworks */,
@@ -486,6 +494,7 @@
 		13B07FAE1A68108700A75B9A /* DriverApp */ = {
 			isa = PBXGroup;
 			children = (
+				A2BA43081F319E97006E2071 /* DriverApp.entitlements */,
 				A22A9BE21F30D10000AFB1BA /* SplashScreenResource */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -535,6 +544,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				A2BA42FD1F319DF4006E2071 /* RCTPushNotification.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -567,7 +577,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				A22A9BBD1F30CFE500AFB1BA /* RCTSplashScreen.xcodeproj */,
 				13B07FAE1A68108700A75B9A /* DriverApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* DriverAppTests */,
@@ -605,14 +614,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A22A9BBE1F30CFE500AFB1BA /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				A22A9BCE1F30CFE600AFB1BA /* libRCTSplashScreen.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		A22A9BE21F30D10000AFB1BA /* SplashScreenResource */ = {
 			isa = PBXGroup;
 			children = (
@@ -642,6 +643,15 @@
 			isa = PBXGroup;
 			children = (
 				A2BA427F1F31944F006E2071 /* libRCTSplashScreen.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A2BA42FE1F319DF4006E2071 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A2BA43031F319DF4006E2071 /* libRCTPushNotification.a */,
+				A2BA43051F319DF4006E2071 /* libRCTPushNotification-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -737,6 +747,11 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = AXBRK75K78;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -792,12 +807,12 @@
 					ProjectRef = 00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */;
 				},
 				{
-					ProductGroup = 139105B71AF99BAD00B5F7CC /* Products */;
-					ProjectRef = 139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */;
+					ProductGroup = A2BA42FE1F319DF4006E2071 /* Products */;
+					ProjectRef = A2BA42FD1F319DF4006E2071 /* RCTPushNotification.xcodeproj */;
 				},
 				{
-					ProductGroup = A22A9BBE1F30CFE500AFB1BA /* Products */;
-					ProjectRef = A22A9BBD1F30CFE500AFB1BA /* RCTSplashScreen.xcodeproj */;
+					ProductGroup = 139105B71AF99BAD00B5F7CC /* Products */;
+					ProjectRef = 139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */;
 				},
 				{
 					ProductGroup = A2BA426B1F31944F006E2071 /* Products */;
@@ -1053,13 +1068,6 @@
 			remoteRef = A2153EBB1F2F318C00D3F180 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		A22A9BCE1F30CFE600AFB1BA /* libRCTSplashScreen.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTSplashScreen.a;
-			remoteRef = A22A9BCD1F30CFE600AFB1BA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		A2BA426F1F31944F006E2071 /* libBVLinearGradient.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1079,6 +1087,20 @@
 			fileType = archive.ar;
 			path = libReactNativeConfig.a;
 			remoteRef = A2BA42901F31944F006E2071 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A2BA43031F319DF4006E2071 /* libRCTPushNotification.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTPushNotification.a;
+			remoteRef = A2BA43021F319DF4006E2071 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A2BA43051F319DF4006E2071 /* libRCTPushNotification-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRCTPushNotification-tvOS.a";
+			remoteRef = A2BA43041F319DF4006E2071 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1281,6 +1303,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = DriverApp/DriverApp.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = AXBRK75K78;
@@ -1300,6 +1323,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.test.DriverApp;
 				PRODUCT_NAME = DriverApp;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1309,6 +1333,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = DriverApp/DriverApp.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AXBRK75K78;
 				HEADER_SEARCH_PATHS = (
@@ -1327,6 +1352,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.test.DriverApp;
 				PRODUCT_NAME = DriverApp;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

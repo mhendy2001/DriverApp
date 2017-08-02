@@ -104,7 +104,11 @@ class NextMoveScreen extends Component {
     const {move} = this.state
     let item = move
     if (typeof item === "undefined" || item === null) {
-      return (<Text style={styles.label}> I18n.t('No Move found') </Text>)
+      return (
+        <ListGradient style={styles.container}>
+        <Text style={styles.label}> I18n.t('No Move found') </Text>
+      </ListGradient>
+      )
     }
     return (
       <ListGradient style={styles.container}>

@@ -1,4 +1,7 @@
-import { Linking } from 'react-native'
+import { Linking, Platform } from 'react-native'
+import { format } from 'date-fns'
+import DebugConfig from '../Config/DebugConfig'
+import Config from '../Config/AppConfig'
 import {
   merge,
   groupWith,
@@ -67,9 +70,40 @@ const mergeMoveTimeSlot = (timeSlots, move) => {
     return move.merge({desired_time_slot: formattedTime, date: Date.parse(move.date)})
 }
 
+const oneHourMillis = 60 * 60 * 1000
+
+const pushMessage = (moveTitle, moveStartTime) => `${title} begins at ${format(start, 'h:mmA')}.`
+
+const pushId = (title, start) => {
+  const message = pushMessage(title, start)
+  if (Platform.OS === 'ios') {
+    // string is fine
+    return message
+  } else {
+    // generate unique number in a string
+    return message.split('').reduce((a, b) => {
+      a = ((a << 5) - a) + b.charCodeAt(0)
+      return Math.abs(a & a)
+    }, 0).toString()
+  }
+}
+
+// Returns 1 hour before move time, unless in debug
+const notificationTime = (moveStartTime) => {
+  if (DebugConfig.testPush) {
+    return new Date(Date.now() + (5 * 1000))
+  } else {
+    return new Date(moveStartTime.getTime() - oneHourMillis)
+  }
+}
+
+
 export default {
   openMaps,
   timeSlotIndex,
   mergeMovesTimeSlot,
-  mergeMoveTimeSlot
+  mergeMoveTimeSlot,
+  notificationTime,
+  pushMessage,
+  pushId
 }
